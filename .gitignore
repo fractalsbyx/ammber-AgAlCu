@@ -1,6 +1,10 @@
 __pycache__/
 *.pyc
 
+# Thermodynamic database: not redistributed, fetch it with ./get_tdb.sh
+*.TDB
+*.tdb
+
 # Build & Install files
 **/build
 **/install

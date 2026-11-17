@@ -8,6 +8,32 @@ Al-Ag-Cu ternary eutectic
 with ammber and writes them as PRISMS-PF phase JSON for an
 isothermal, isotropic phase-field run from an undercooled melt.
 
+## Getting the thermodynamic database
+
+The TDB is not included in this repository (see
+[Database source and license](#database-source-and-license)). Download it into
+the repository root before running anything:
+
+```bash
+./get_tdb.sh
+```
+
+The script fetches `tasks/Ag-Al-Cu.TDB` from
+[PhasesResearchLab/MaterialsMap](https://github.com/PhasesResearchLab/MaterialsMap)
+at a fixed commit and checks its SHA-256 checksum. To do the same by hand:
+
+```bash
+curl -fsSL -o Ag-Al-Cu.TDB https://raw.githubusercontent.com/PhasesResearchLab/MaterialsMap/83ab2eb67b1ce0af5b9e9fc7adf83816acf02bf3/tasks/Ag-Al-Cu.TDB
+```
+
+```bash
+shasum -a 256 Ag-Al-Cu.TDB
+```
+
+The checksum should be
+`bd5ed0092c11f23176f9e44a562bb7fe9f207060a79dfb79e63f32d991b1ef9d`.
+`*.TDB` files are git-ignored, so the downloaded file is never committed.
+
 ## Usage
 
 Python env: pycalphad 0.11, ammber 0.1.8, numpy, scipy, plotly, matplotlib.
@@ -107,15 +133,24 @@ from c_ref for a less stiff phase-field problem.
 - `tdb_sampling.py`: pycalphad sampling, single-phase G(x), equilibrium and T_E search
 - `plot_fit.py`: plotly and matplotlib figures
 - `check_eutectic.py`: quick pycalphad equilibrium scan
-- `Ag-Al-Cu.TDB`: thermodynamic database
+- `fit_simple.py`, `fit_sample.py`, `fit_grid.py`: minimal ammber-only fits
+  (pycalphad sampling, `sample_phase` grid, ammber grid with
+  `resample_near_*`/`mask_near_*`)
+- `compare_fits.py`: comparison figure of fits against the full pipeline
+- `combine_system.py`: merges a fit with `phase-field/system_parameters.json`
+  into `phase-field/system.json`
+- `phase-field/`: PRISMS-PF application (lamellar eutectic seed)
+- `get_tdb.sh`: downloads `Ag-Al-Cu.TDB` (not included, see above)
 
 ## Database source and license
 
 `Ag-Al-Cu.TDB` is the assessment of Witusiewicz et al.,
-J. Alloys Compd. 387 (2005) 217. The file was taken from the
-MaterialsMap GitHub mirror (`mfkiwl/MaterialsMap`, `tasks/Ag-Al-Cu.TDB`). Its
-license is **not stated** there; check the terms before redistributing the
-TDB, and cite the paper when using results from it.
+J. Alloys Compd. 387 (2005) 217. It is not redistributed here: `get_tdb.sh`
+downloads it from
+[PhasesResearchLab/MaterialsMap](https://github.com/PhasesResearchLab/MaterialsMap)
+(`tasks/Ag-Al-Cu.TDB`). That repository carries an MIT license, but the
+database itself comes from the paper above; check its terms before
+redistributing the TDB, and cite the paper when using results from it.
 
 ## Limits
 
