@@ -1,0 +1,66 @@
+{
+  "dimensions": {
+    "length_scale": 1e-08,
+    "time_scale": 1e-06,
+    "energy_density_scale": 1000000000.0
+  },
+  "Vm": 9.7e-06,
+  "l_int": 2e-08,
+  "order_parameters": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
+  "phase_order": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
+  "sigma": [
+    [0.0, 0.2, 0.2, 0.2],
+    [0.2, 0.3, 0.3, 0.3],
+    [0.2, 0.3, 0.3, 0.3],
+    [0.2, 0.3, 0.3, 0.3]
+  ],
+  "mu_int": [
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09]
+  ],
+  "phases": [
+    {
+      "name": "LIQUID",
+      "c0": [0.1825, 0.1275],
+      "D": [
+        [2e-09, 0.0],
+        [0.0, 2e-09]
+      ]
+    },
+    {
+      "name": "FCC_A1_0",
+      "c0": [0.17, 0.0425],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    },
+    {
+      "name": "HCP_A3",
+      "c0": [0.585, 0.03],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    },
+    {
+      "name": "THETA",
+      "c0": [0.0008333333, 0.3225],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    }
+  ],
+  "notes": {
+    "phase_order": "order of the phases in the combined system, and so the row/column order of sigma and mu_int (combine_system.py reorders the fitted phases to it)",
+    "Vm": "m^3/mol, Vegard average of pure Al, Ag, Cu at the eutectic composition",
+    "l_int": "m, interface width for the 4 um domain (narrowest lamella ~300 nm)",
+    "sigma": "J/m^2, placeholder: solid-liquid 0.2, solid-solid 0.3",
+    "mu_int": "m^4/(J s), placeholder interface mobility 1e-09",
+    "c0": "initial compositions (x_Ag, x_Cu): liquid at the eutectic, solids at equilibrium",
+    "D": "m^2/s, placeholder: liquid 2e-9, solids 1e-15"
+  }
+}

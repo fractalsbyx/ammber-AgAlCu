@@ -1,0 +1,97 @@
+{
+  "dimensions": {
+    "length_scale": 1e-08,
+    "time_scale": 1e-06,
+    "energy_density_scale": 1000000000.0
+  },
+  "solution_component": "Al",
+  "components": ["Ag", "Cu"],
+  "convert_fractional_to_volumetric_energy": true,
+  "Vm": 9.7e-06,
+  "l_int": 2e-08,
+  "phases": [
+    {
+      "name": "LIQUID",
+      "c_ref": [0.1825, 0.1275],
+      "A": [
+        [35760.38116938431, 32159.921103739125],
+        [32159.921103739125, 101025.58299433418]
+      ],
+      "B": [-31200.771448210668, -44637.028299460406],
+      "C": -40428.911983751765,
+      "c0": [0.1825, 0.1275],
+      "D": [
+        [2e-09, 0.0],
+        [0.0, 2e-09]
+      ]
+    },
+    {
+      "name": "FCC_A1_0",
+      "c_ref": [0.17, 0.0425],
+      "A": [
+        [2861.4354983435715, -6194.254473666581],
+        [-6194.254473666581, 81258.82667605804]
+      ],
+      "B": [-31200.771448210668, -44637.028299460406],
+      "C": -36273.927673122584,
+      "c0": [0.17, 0.0425],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    },
+    {
+      "name": "HCP_A3",
+      "c_ref": [0.585, 0.03],
+      "A": [
+        [666867.0285667903, 583573.5009657342],
+        [583573.5009657342, 942069.6090359762]
+      ],
+      "B": [-31200.771448210668, -44637.028299460406],
+      "C": -48664.284970386754,
+      "c0": [0.585, 0.03],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    },
+    {
+      "name": "THETA",
+      "c_ref": [0.0008333333, 0.3225],
+      "A": [
+        [7640571.503791802, 917972.027727597],
+        [917972.027727597, 1065529.9160115938]
+      ],
+      "B": [-31200.771448210668, -44637.028299460406],
+      "C": -43494.16509260917,
+      "c0": [0.0008333333, 0.3225],
+      "D": [
+        [1e-15, 0.0],
+        [0.0, 1e-15]
+      ]
+    }
+  ],
+  "sigma": [
+    [0.0, 0.2, 0.2, 0.2],
+    [0.2, 0.3, 0.3, 0.3],
+    [0.2, 0.3, 0.3, 0.3],
+    [0.2, 0.3, 0.3, 0.3]
+  ],
+  "mu_int": [
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09],
+    [1e-09, 1e-09, 1e-09, 1e-09]
+  ],
+  "order_parameters": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
+  "phase_order": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
+  "notes": {
+    "phase_order": "order of the phases in the combined system, and so the row/column order of sigma and mu_int (combine_system.py reorders the fitted phases to it)",
+    "Vm": "m^3/mol, Vegard average of pure Al, Ag, Cu at the eutectic composition",
+    "l_int": "m, interface width for the 4 um domain (narrowest lamella ~300 nm)",
+    "sigma": "J/m^2, placeholder: solid-liquid 0.2, solid-solid 0.3",
+    "mu_int": "m^4/(J s), placeholder interface mobility 1e-09",
+    "c0": "initial compositions (x_Ag, x_Cu): liquid at the eutectic, solids at equilibrium",
+    "D": "m^2/s, placeholder: liquid 2e-9, solids 1e-15"
+  }
+}
