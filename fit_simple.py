@@ -31,6 +31,7 @@ args = parser.parse_args()
 
 system = IsothermalDiscreteSystem()
 system.fromTDB(Database("Ag-Al-Cu.TDB"), ["AG", "CU"], "AL", args.T, phase_list=PHASES,
+               sampling="pycalphad",
                pdens=args.pdens)
 
 # Below T_E the hull at the eutectic composition is the three-solid triangle
