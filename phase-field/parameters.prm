@@ -2,23 +2,25 @@
 subsection Rectangular mesh
   set x lower bound = 0
   set y lower bound = 0
-  set x size = 4e-6
-  set y size = 4e-6
+  set z lower bound = 0
+  set x size = 2e-6
+  set y size = 2e-6
+  set z size = 2e-6
 end
 
-set global refinement = 10
-set max refinement    = 10
+set global refinement = 9
+set max refinement    = 9
 set min refinement    = 4
 set mesh adaptivity   = true
 set remeshing period  = 500
 
-set time step = 3.6e-11
-set num_steps = 1000000
+set time step = 1.0
+set num_steps = 10000000
 
 subsection output
   set condition = EQUAL_SPACING
   set number    = 500
-  #set list = 1,2,3,4
+  set list = 1
 end
 
 # =================================================================================
@@ -29,7 +31,10 @@ end
 # Height of the seed (m)
 set Model constant seed_height = 0.2e-6, DOUBLE
 # Number of ABAC periods (Al2Cu | alpha-Al | Ag2Al | alpha-Al) across x
+
+set Model constant scale_with_domain = false, BOOL
 set Model constant num_periods = 2, INT
+set Model constant period = 1e-6, DOUBLE
 
 # =================================================================================
 # Set the automatic parameter selection constants

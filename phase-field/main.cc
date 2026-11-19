@@ -39,14 +39,14 @@ main(int argc, char *argv[])
   // file
   ParseCMDOptions cli_options(argc, argv);
 
-  constexpr unsigned int dim       = 2;
+  constexpr unsigned int dim       = 3;
   constexpr unsigned int degree    = 1;
   constexpr unsigned int num_comps = 2;
   using number                     = float;
 
   QuadraticSystem<num_comps> sys;
   // Fit + phase-field parameters, made by ../combine_system.py
-  std::ifstream              file("system.json");
+  std::ifstream file("system.json");
   if (!file.is_open())
     throw std::runtime_error("Could not open system");
   nlohmann::json model_parameters;
@@ -69,6 +69,7 @@ main(int argc, char *argv[])
   space.rectangular_mesh.size /= scales.length_scale;
   space.rectangular_mesh.lower_bound /= scales.length_scale;
   user_constants.get_double("seed_height") /= scales.length_scale;
+  user_constants.get_double("period") /= scales.length_scale;
   // Choose the timestep automatically based on the CFL condition
   const double dx = get_min_dx(space);
   const double stability_factor =
