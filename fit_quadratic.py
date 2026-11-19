@@ -234,8 +234,8 @@ def write_json(quadratic, T):
     system_dict["solution_component"] = LABELS[quadratic.solution_component]
     system_dict["components"] = [LABELS[c] for c in quadratic.components]
     n = len(quadratic.components)
-    for entry in system_dict["phases"]:
-        D = D_LIQUID if entry["name"] == "LIQUID" else D_SOLID
+    for name, entry in system_dict["phases"].items():
+        D = D_LIQUID if name == "LIQUID" else D_SOLID
         entry.setdefault("D", (D * np.eye(n)).tolist())
     json_path.write_text(json.dumps(system_dict, indent=2))
     print(f"\nSaved fitted phases to {json_path}")

@@ -9,9 +9,9 @@
   "convert_fractional_to_volumetric_energy": true,
   "Vm": 9.7e-06,
   "l_int": 2e-08,
-  "phases": [
-    {
-      "name": "LIQUID",
+  "phase_order": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
+  "phases": {
+    "LIQUID": {
       "c_ref": [0.1825, 0.1275],
       "A": [
         [35760.38116938431, 32159.921103739125],
@@ -25,8 +25,7 @@
         [0.0, 2e-09]
       ]
     },
-    {
-      "name": "FCC_A1_0",
+    "FCC_A1_0": {
       "c_ref": [0.17, 0.0425],
       "A": [
         [2861.4354983435715, -6194.254473666581],
@@ -40,8 +39,7 @@
         [0.0, 1e-15]
       ]
     },
-    {
-      "name": "HCP_A3",
+    "HCP_A3": {
       "c_ref": [0.585, 0.03],
       "A": [
         [666867.0285667903, 583573.5009657342],
@@ -55,8 +53,7 @@
         [0.0, 1e-15]
       ]
     },
-    {
-      "name": "THETA",
+    "THETA": {
       "c_ref": [0.0008333333, 0.3225],
       "A": [
         [7640571.503791802, 917972.027727597],
@@ -70,7 +67,7 @@
         [0.0, 1e-15]
       ]
     }
-  ],
+  },
   "sigma": [
     [0.0, 0.2, 0.2, 0.2],
     [0.2, 0.3, 0.3, 0.3],
@@ -84,7 +81,6 @@
     [1e-09, 1e-09, 1e-09, 1e-09]
   ],
   "order_parameters": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
-  "phase_order": ["LIQUID", "FCC_A1_0", "HCP_A3", "THETA"],
   "notes": {
     "phase_order": "order of the phases in the combined system, and so the row/column order of sigma and mu_int (combine_system.py reorders the fitted phases to it)",
     "Vm": "m^3/mol, Vegard average of pure Al, Ag, Cu at the eutectic composition",

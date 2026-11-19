@@ -4,14 +4,14 @@ read by AMMBER-PRISMS-PF's QuadraticSystem.
 
 From the fit (e.g. quadratic_fit_grid_mask_n400_r0.005_T771.4.json) only the
 fitted quantities are taken: solution_component, components,
-convert_fractional_to_volumetric_energy, and each phase's name, c_ref, A, B, C.
+convert_fractional_to_volumetric_energy, and each phase's c_ref, A, B, C.
 Everything else comes from the parameter file (phase-field/system_parameters.json):
-dimensions, Vm, l_int, sigma, mu_int, order_parameters, and each phase's c0
-and D.
+dimensions, Vm, l_int, sigma, mu_int, order_parameters, phase_order, and each
+phase's c0 and D.
 
-The phases are written in the parameter file's "phase_order", which is the
-row/column order of its sigma and mu_int matrices, so the matrices are used
-as they are.
+In both files and in the output, "phases" maps phase names to their parameters.
+The output's "phase_order" is the parameter file's, which is the row/column
+order of its sigma and mu_int matrices, so the matrices are used as they are.
 
 Usage: python combine_system.py [--fit FIT.json] [--params PARAMS.json] [--out OUT.json]
 """
@@ -38,20 +38,20 @@ def fmt(obj, indent=0):
     return json.dumps(obj)
 
 
-def by_name(phases, source):
-    out = {}
-    for phase in phases:
-        if phase["name"] in out:
-            raise ValueError(f"{source}: duplicate phase {phase['name']!r}")
-        out[phase["name"]] = phase
-    return out
+def phases_of(source, name):
+    phases = source.get("phases")
+    if not isinstance(phases, dict):
+        raise ValueError(f"{name}: \"phases\" must be an object keyed by phase name")
+    return phases
 
 
 def combine(fit, params):
     order = params["phase_order"]
-    fit_phases = by_name(fit["phases"], "fit")
-    param_phases = by_name(params["phases"], "parameters")
+    fit_phases = phases_of(fit, "fit")
+    param_phases = phases_of(params, "parameters")
 
+    if len(set(order)) != len(order):
+        raise ValueError(f"phase_order has duplicates: {order}")
     for source, names in (("fit", fit_phases), ("parameters", param_phases)):
         if sorted(names) != sorted(order):
             raise ValueError(f"{source} phases {sorted(names)} do not match "
@@ -71,14 +71,13 @@ def combine(fit, params):
     system = {key: params[key] for key in ("dimensions",)}
     system.update({key: fit[key] for key in FIT_SYSTEM_KEYS})
     system.update({key: params[key] for key in ("Vm", "l_int")})
-    system["phases"] = [
-        {"name": name,
-         **{key: fit_phases[name][key] for key in FIT_PHASE_KEYS},
-         **{key: param_phases[name][key] for key in PARAM_PHASE_KEYS}}
+    system["phase_order"] = list(order)
+    system["phases"] = {
+        name: {**{key: fit_phases[name][key] for key in FIT_PHASE_KEYS},
+               **{key: param_phases[name][key] for key in PARAM_PHASE_KEYS}}
         for name in order
-    ]
+    }
     system.update({key: params[key] for key in ("sigma", "mu_int", "order_parameters")})
-    system["phase_order"] = order
     if "notes" in params:
         system["notes"] = params["notes"]
     return system

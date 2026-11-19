@@ -116,8 +116,9 @@ from c_ref for a less stiff phase-field problem.
 ## Outputs
 
 - `quadratic_fit_T<T>.json`: PRISMS-PF phase JSON in the same format as the
-  Ga-In-Pb example (`solution_component`, `components`, phases with `c_ref`, `A`,
-  `B`, `C`, `D`). Energies are J/mol of atoms in the TDB's SER reference, with
+  Ga-In-Pb example (`solution_component`, `components`, `phases` keyed by phase
+  name with `c_ref`, `A`, `B`, `C`, `D`, and `phase_order` giving the order of the
+  phase-indexed matrices). Energies are J/mol of atoms in the TDB's SER reference, with
   `x = (x_Ag, x_Cu)`. Phase names are the TDB names (LIQUID, FCC_A1, HCP_A3,
   THETA). `D` is a **placeholder**: 2e-9 m^2/s for the liquid and 1e-15 m^2/s
   (effectively frozen) for the solids. An existing JSON is updated in place, so

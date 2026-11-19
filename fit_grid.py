@@ -64,8 +64,8 @@ for name, phase in quadratic.phases.items():
 
 out = quadratic.add_to_dict({})
 out["solution_component"], out["components"] = "Al", ["Ag", "Cu"]
-for entry in out["phases"]:  # placeholder diffusivities (m^2/s); solids frozen
-    entry["D"] = ((2e-9 if entry["name"] == "LIQUID" else 1e-15) * np.eye(2)).tolist()
+for name, entry in out["phases"].items():  # placeholder diffusivities (m^2/s); solids frozen
+    entry["D"] = ((2e-9 if name == "LIQUID" else 1e-15) * np.eye(2)).tolist()
 path = f"quadratic_fit_grid_{args.select}_n{args.n}_r{args.xdist:g}_T{args.T:g}.json"
 with open(path, "w") as f:
     json.dump(out, f, indent=2)

@@ -45,8 +45,8 @@ def load(path):
     """Phases by base name (FCC_A1_1 -> FCC_A1), and the solids' tangent plane."""
     data = json.load(open(path))
     phases = {}
-    for p in data["phases"]:
-        base = next(b for b in ORDER if p["name"] == b or p["name"].startswith(b + "_"))
+    for name, p in data["phases"].items():
+        base = next(b for b in ORDER if name == b or name.startswith(b + "_"))
         phases[base] = {k: np.array(p[k], dtype=float) for k in ("c_ref", "A", "B")}
         phases[base]["C"] = float(p["C"])
     s = phases["FCC_A1"]
